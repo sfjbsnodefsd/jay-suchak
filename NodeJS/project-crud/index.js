@@ -8,7 +8,8 @@ const connect = mySql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'welcome$1234',
-    database: 'employeedb'
+    database: 'employeedb',
+    multipleStatements: true
 })
 
 connect.connect((err) => {
@@ -29,7 +30,6 @@ app.get('/', (req, res) => {
 app.get('/getEmp', async (req, res) => {
     connect.query('select * from employeedata', (err, data, fields) => {
         if (err) throw err;
-        console.log(fields);
         return res.send(data);
     });
 })
@@ -38,7 +38,6 @@ app.get('/getEmp', async (req, res) => {
 app.get('/getEmp/:id', async (req, res) => {
     connect.query(`select * from employeedata where empId=${req.params.id}`, (err, data, fields) => {
         if (err) throw err;
-        console.log(fields);
         return res.send(data);
     });
 })
@@ -47,7 +46,52 @@ app.get('/getEmp/:id', async (req, res) => {
 app.delete('/getEmp/:id', async (req, res) => {
     connect.query(`delete from employeedata where empId=${req.params.id}`, (err, data, fields) => {
         if (err) throw err;
-        console.log(fields);
         return res.send(data);
+    });
+})
+
+// insert employee
+app.post('/addEmployee', async (req, res) => {
+    let empData = req.body;
+    console.log(empData);
+    let sqlQuery = `SET @empId = ?; SET @name = ?; SET @salary = ?;SET @empCode = ?;
+    CALL employeeAddOrEdit(@empId, @name, @salary, @empCode);`;
+    connect.query(sqlQuery, [empData.empId, empData.name, empData.salary, empData.empCode], (err, data, fields) => {
+        if (err) throw err;
+        data.forEach(element => {
+            if (element.costructor == Array) {
+                return res.send({
+                    message: 'Inserted Employee Emp id is ' + element[0].empId
+                })
+            }
+        });
+        return res.status(200).send({
+            message: 'Data has been added.',
+            // data,
+            // fields
+        });
+    });
+})
+
+// update employee
+app.put('/updateEmployee', async (req, res) => {
+    let empData = req.body;
+    console.log(empData);
+    let sqlQuery = `SET @empId = ?; SET @name = ?; SET @salary = ?;SET @empCode = ?;
+    CALL employeeAddOrEdit(@empId, @name, @salary, @empCode);`;
+    connect.query(sqlQuery, [empData.empId, empData.name, empData.salary, empData.empCode], (err, data, fields) => {
+        if (err) throw err;
+        data.forEach(element => {
+            if (element.costructor == Array) {
+                return res.send({
+                    message: 'Inserted Employee Emp id is ' + element[0].empId
+                })
+            }
+        });
+        return res.status(200).send({
+            message: 'Data has been updated.',
+            // data,
+            // fields
+        });
     });
 })
