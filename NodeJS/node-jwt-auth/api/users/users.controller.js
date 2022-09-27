@@ -3,7 +3,9 @@ const {
     genSaltSync
 } = require('bcrypt');
 const {
-    create
+    create,
+    getUsers,
+    getUserById
 } = require('./users.service');
 
 module.exports = {
@@ -24,6 +26,36 @@ module.exports = {
                 success: 1,
                 results
             });
+        })
+    },
+    getUsersData: (req, res) => {
+        getUsers((err, data) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send({
+                    success: 0,
+                    err
+                })
+            }
+            return res.status(200).send({
+                success: 1,
+                data
+            })
+        })
+    },
+    getUsersDataById: (req, res) => {
+        getUserById(req.params.id, (err, data) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send({
+                    success: 0,
+                    err
+                })
+            }
+            return res.status(200).send({
+                success: 1,
+                data
+            })
         })
     }
 }
