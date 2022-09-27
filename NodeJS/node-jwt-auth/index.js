@@ -4,14 +4,18 @@ const app = express();
 // json parser
 app.use(express.json());
 
-// database connect
-const connection = require('./config/database');
+// load config
+require('dotenv').config();
+
 
 app.get('/', (req, res) => {
     res.send({
         message: "Test"
     });
 })
-let server = app.listen(3000, () => {
+
+app.use('/users', require('./api/users/users.routes'));
+
+let server = app.listen(process.env.APP_PORT, () => {
     console.log('Server running on ', server.address().port);
 })
