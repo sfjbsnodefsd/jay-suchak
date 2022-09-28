@@ -37,5 +37,32 @@ module.exports = {
             }
             return callback(null, data);
         })
-    }
+    },
+    update: (data, callback) => {
+        pool.query(`update registration set firstName=?, lastName=?, number=?, gender=?, email=? 
+        where id=?`,
+            [
+                data.fistName,
+                data.lastName,
+                data.number,
+                data.gender,
+                data.email,
+                data.id
+            ],
+            (err, results, fields) => {
+                if (err) {
+                    return callback(err)
+                }
+                return callback(null, results);
+
+            })
+    },
+    deleteUserById: (id, callback) => {
+        pool.query(`delete from registration where id= ?`, [id], (err, data, fields) => {
+            if (err) {
+                return callback(err)
+            }
+            return callback(null, data);
+        })
+    },
 }
