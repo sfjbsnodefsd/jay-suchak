@@ -1,14 +1,19 @@
 const {
     hashSync,
-    genSaltSync
+    genSaltSync,
+    compareSync
 } = require('bcrypt');
 const {
     create,
     getUsers,
     getUserById,
     update,
-    deleteUserById
+    deleteUserById,
+    getUserByEmail
 } = require('./users.service');
+let {
+    sign
+} = require('jsonwebtoken')
 
 module.exports = {
     createUser: (req, res) => {
@@ -108,4 +113,40 @@ module.exports = {
             })
         })
     },
+    login: (req, res) => {
+        let body = req.body;
+        getUserByEmail(body.email, (err, result) => {
+            if (err) {
+                return res.send({
+                    success: 0,
+                    error: err
+                });
+            }
+            if (!result) {
+                return res.send({
+                    success: 0,
+                    error: 'User not found'
+                });
+            }
+            let passMatch = compareSync(body.password, result.password);
+            if (passMatch) {
+                result.password = "";
+                let token = sign({
+                    result
+                }, process.env.JWT_KEY, {
+                    expiresIn: '1h'
+                });
+                return res.send({
+                    token,
+                    success: 1,
+                    message: 'Login Successfully'
+                })
+            } else {
+                return res.send({
+                    success: 0,
+                    message: 'Wrong password'
+                })
+            }
+        })
+    }
 }

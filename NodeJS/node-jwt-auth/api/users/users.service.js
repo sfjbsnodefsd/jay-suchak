@@ -65,4 +65,12 @@ module.exports = {
             return callback(null, data);
         })
     },
+    getUserByEmail: (email, callback) => {
+        pool.query(`select * from registration where email= ?`, [email], (err, data, fields) => {
+            if (err) {
+                return callback(err)
+            }
+            return callback(null, data[0]);
+        })
+    },
 }
