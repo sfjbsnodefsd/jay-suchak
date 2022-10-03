@@ -44,6 +44,7 @@ app.post("/auth/login", async (req, res) => {
   if (!user) {
     return res.json({ sucess: 0, message: "User dose not exist" });
   } else {
+    console.log(typeof user.password, typeof password);
     if (password !== user.password) {
       return res.json({ sucess: 0, message: "Incorrect password" });
     }
