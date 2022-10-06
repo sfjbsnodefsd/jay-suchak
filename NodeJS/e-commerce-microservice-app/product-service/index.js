@@ -51,7 +51,9 @@ app.post('/product/create', isAuthenticated, async (req, res) => {
 // the order will be created of those products and the sum of the products prices will be the total billing amount 
 app.post('/product/buy', isAuthenticated, async (req, res) => {
     try {
-        let [ids] = req.body;
+        let {
+            ids
+        } = req.body;
         let products = await new product.find(_id, {
             $in: ids
         });

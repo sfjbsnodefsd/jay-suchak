@@ -23,7 +23,16 @@ async function connect() {
     channel = await connection.createChannel()
     await channel.assertQueue('ORDER');
 }
-connect();
+connect().then(() => {
+    channel.consume('ORDER', data => {
+        const {
+            products,
+            userEmail
+        } = JSON.parse(data.content);
+        console.log('Consuming order queue');
+        console.log(products);
+    })
+});
 
 app.listen(PORT, () => {
     console.log(`Auth service at ${PORT}`);
