@@ -17,6 +17,20 @@ mongoose.connect(
         console.log(`order service DB  Connected`);
     }
 );
+
+function createOrder(products, userEmail) {
+    let total = 0;
+    for (const product of products) {
+        total += product.price;
+    }
+    let newOrder = new order({
+        products,
+        user: userEmail,
+        total_price: total
+    })
+    newOrder.save()
+    return newOrder;
+}
 async function connect() {
     const amqpServer = 'amqp://localhost:5672'
     connection = await amqp.connect(amqpServer);
@@ -29,8 +43,13 @@ connect().then(() => {
             products,
             userEmail
         } = JSON.parse(data.content);
+        let newOrder = createOrder(products, userEmail);
         console.log('Consuming order queue');
         console.log(products);
+        channel.ack(data);
+        channel.sendToQueue('PRODUCT', Buffer.from(JSON.stringify({
+            newOrder
+        })));
     })
 });
 

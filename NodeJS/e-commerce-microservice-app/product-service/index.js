@@ -7,7 +7,7 @@ const amqp = require('amqplib');
 const product = require('./product');
 const isAuthenticated = require('../isAuthenticated');
 app.use(express.json());
-var channel, connection;
+var channel, connection, order;
 mongoose.connect(
     "mongodb://localhost:27017/product-service", {
         useNewUrlParser: true,
@@ -38,6 +38,7 @@ app.post('/product/create', isAuthenticated, async (req, res) => {
             description,
             price
         });
+        newProduct.save();
         return res.send({
             message: 'Created',
             newProduct
@@ -54,13 +55,22 @@ app.post('/product/buy', isAuthenticated, async (req, res) => {
         let {
             ids
         } = req.body;
-        let products = await new product.find(_id, {
-            $in: ids
+        let products = await product.find({
+            _id: {
+                $in: ids
+            }
         });
         channel.sendToQueue('ORDER', Buffer.from(JSON.stringify({
             products,
             userEmail: req.user.email
         })))
+        channel.consume("PRODUCT", data => {
+            console.log("consuming product queue");
+            order = JSON.parse(data.content);
+            channel.ack(data);
+        })
+        return res.json(order)
+
     } catch (error) {
         return res.send(error);
     }
