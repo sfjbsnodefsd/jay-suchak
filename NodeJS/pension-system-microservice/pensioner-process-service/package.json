@@ -1,0 +1,11 @@
+{
+  "name": "pensioner-process-service",
+  "version": "1.0.0",
+  "description": "pensioner process service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jay",
+  "license": "ISC"
+}
