@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const app = express();
-const PORT = 5000;
+const PORT = 5003;
 const User = require("./User");
 const jwt = require("jsonwebtoken");
 app.use(express.json());
@@ -34,6 +34,46 @@ app.post("/auth/reg", async (req, res) => {
     return res.json(newUser);
   }
 });
+
+// login
+
+app.post("/auth/login", async (req, res) => {
+  const {
+      email,
+      password
+  } = req.body;
+
+  const user = await User.findOne({
+      email
+  });
+  if (!user) {
+      return res.json({
+          sucess: 0,
+          message: "User dose not exist"
+      });
+  } else {
+      if (password !== user.password) {
+          return res.json({
+              sucess: 0,
+              message: "Incorrect password"
+          });
+      }
+      const payload = {
+          email,
+          name: user.name,
+          exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      };
+      jwt.sign(payload, "secret", (err, token) => {
+          if (err) console.log(err);
+          else {
+              return res.json({
+                  token: token
+              });
+          }
+      });
+  }
+});
+
 
 
 

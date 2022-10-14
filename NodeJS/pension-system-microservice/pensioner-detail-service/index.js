@@ -60,17 +60,18 @@ let connection, channel;
 // });
 
 // get a pensioner detail by adhaar
-app.get("/:aadhaar", isAuthenticated , async (req, res) => {
+app.get("/:aadhaar", async (req, res) => {
     try {
 
         let aadhaar = req.params.aadhaar;
-        const pensioner = await PensionerDetail.findOne({
+        console.log(aadhaar);
+        const pensioner = await PensionerDetail.find({
             aadhaar
         }).lean();
 
         return res.send({
             success: true,
-            pensioner,
+            pensioner: pensioner[0],
             message: 'Pensioner detail'
         })
     } catch (error) {
