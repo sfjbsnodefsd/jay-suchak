@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "11a56a26-35a7-4241-9232-c62f6f79a29c",
+		"name": "Pension Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Pensioner Detail By Adhaar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpheS5zdWNoYWtAdGNzLmNvbSIsIm5hbWUiOiJKYXkgU3VjaGFrIiwiZXhwIjoxNjY1NzYwNDAzLCJpYXQiOjE2NjU3NTY4MDN9.2G8zm6l5UhBCenlEi1M1afFwU5r97zwX1wsx_KSt84A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5002/77854215123245641",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"77854215123245641"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pensioner Detail By Adhaar Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpheS5zdWNoYWtAdGNzLmNvbSIsIm5hbWUiOiJKYXkgU3VjaGFrIiwiZXhwIjoxNjY1NzYwNDAzLCJpYXQiOjE2NjU3NTY4MDN9.2G8zm6l5UhBCenlEi1M1afFwU5r97zwX1wsx_KSt84A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"aadhaar\": 77854215123245641\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/processpension",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"processpension"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"jay.suchak@tcs.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5003/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jay Suchak\",\r\n    \"email\": \"jay.suchak@tcs.com\",\r\n    \"password\": 123456\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5003/auth/reg",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"auth",
+						"reg"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
