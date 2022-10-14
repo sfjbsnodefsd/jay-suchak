@@ -19,7 +19,6 @@ app.post("/processpension", isAuthenticated, async (req, res) => {
     } = req.body;
     try {
         response_from_pensioner_detail = await getPensioner(aadhaar);
-        console.log(response_from_pensioner_detail);
         if (!response_from_pensioner_detail.success) {
             throw new Error(response_from_pensioner_detail.err);
         }
@@ -30,15 +29,17 @@ app.post("/processpension", isAuthenticated, async (req, res) => {
             bank_detail
         } =
         response_from_pensioner_detail.pensioner;
-        const pensionPercentage = getPensionPercentage(classification);
-        if (pensionPercentage === null) {
+        const pensionPercentage = await getPensionPercentage(classification);
+        console.log("pensionPercentage", pensionPercentage);
+        if (pensionPercentage && pensionPercentage.percentage === null) {
             console.error("[DEBUG] Provided Pension classifation is not supported");
             throw new Error("Internal Server Error");
         }
 
         const PensionAmount = (80 * salary_earned) / 100 + allowances;
-        const ServiceCharge = getBankServiceCharge(bank_detail.bank_type);
-        if (ServiceCharge === null) {
+        const ServiceCharge = await getBankServiceCharge(bank_detail.bank_type);
+        console.log("serviceCharge ",ServiceCharge);
+        if (ServiceCharge && ServiceCharge.serviceCharge === null) {
             console.error("[DEBUG] Provided Bank classifation is not supported");
             throw new Error("Internal Server Error");
         }
@@ -63,7 +64,6 @@ app.post("/processpension", isAuthenticated, async (req, res) => {
 
 const getPensioner = (aadhaar) =>
     new Promise((resolve, reject) => {
-        console.log(aadhaar);
         request.get(
             `http://localhost:5002/${aadhaar}`, {
                 json: true
@@ -73,40 +73,45 @@ const getPensioner = (aadhaar) =>
                     console.log(err);
                     return reject(err);
                 }
-                console.log(body);
                 resolve(body);
             }
         );
     });
 
-const getPensionPercentage = (classification) => {
-    let percentage = null;
-    switch (classification.toUpperCase()) {
-        case "SELF":
-            percentage = 80;
-            break;
+const getPensionPercentage = (classification) => 
+    new Promise((resolve, reject) => {
+        console.log("classification", classification);
+        request.get(
+            `http://localhost:5004/getPensionPercentage/${classification}`, {
+                json: true
+            },
+            (err, res, body) => {
+                if (err) {
+                    console.log(err);
+                    return reject(err);
+                }
+                resolve(body);
+            }
+        );
+    });
 
-        case "FAMILY":
-            percentage = 50;
-            break;
-    }
-    return percentage;
-};
 
-const getBankServiceCharge = (bank_type) => {
-    let serviceCharge = null;
+const getBankServiceCharge = (bank_type) => 
+    new Promise((resolve, reject) => {
+        request.get(
+            `http://localhost:5004/getBankServiceCharge/${bank_type}`, {
+                json: true
+            },
+            (err, res, body) => {
+                if (err) {
+                    console.log(err);
+                    return reject(err);
+                }
+                resolve(body);
+            }
+        );
+    });
 
-    switch (bank_type.toUpperCase()) {
-        case "PUBLIC":
-            serviceCharge = 500;
-            break;
-        case "PRIVATE":
-            serviceCharge = 550;
-            break;
-    }
-
-    return serviceCharge;
-};
 
 app.listen(PORT, () => {
     console.log(`PENSIONER-DETAIL-SERVICE Running at PORT ${PORT}`);
