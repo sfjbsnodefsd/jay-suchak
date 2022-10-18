@@ -1,0 +1,16 @@
+{
+  "name": "kafka-demo-app",
+  "version": "1.0.0",
+  "description": "- to start the docker image of kafka \r     - docker compose up",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:p": "nodemon ./producer/index",
+    "start:c": "nodemon ./consumer/index"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
