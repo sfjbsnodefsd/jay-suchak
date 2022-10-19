@@ -1,17 +1,25 @@
 console.log("producer");
-import Kafka from "node-rdkafka";
+import kafka from "node-rdkafka";
 
-const stream = Kafka.createWriteStream({
-    "metadata.broker.list": "localhost:9092",
-}, {}, {
-    topic: "test"
-});
-
+const stream = kafka.createWriteStream(
+    {
+    'metadata.broker.list':'localhost:9092',
+},
+    {},
+    {topic: "test" }
+);
 
 function queueMessage() {
-    const result = stream.write(Buffer.from("Hey my name is nishant"))
-    console.log(result);
+    const success = stream.write(Buffer.from("Hey my name is dallan"));
+    if(success)
+    {
+        console.log("message published successfully to stream");
+    } else {
+        console.log("something went wrong.")
+    }
+    
 }
-setInterval(() => {
+
+setInterval(()=>{
     queueMessage();
 }, 3000)
