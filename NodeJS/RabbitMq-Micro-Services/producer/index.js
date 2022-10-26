@@ -14,15 +14,20 @@ async function connect() {
 }
 connect();
 app.get("/send", async (req, res) => {
-    const fakeData = {
-        name: 'Jay',
-        company: 'TCS'
-    };
-    await channel.sendToQueue('Rabbit', Buffer.from(JSON.stringify(fakeData)));
-    await channel.close();
-    await connection.close();
-    return res.send('End');
+    try {
+        
+        const fakeData = {
+            name: 'Jay',
+            company: 'TCS'
+        };
+        await channel.sendToQueue('Rabbit', Buffer.from(JSON.stringify(fakeData)));
+        await channel.close();
+        await connection.close();
+        return res.send('End');
+    } catch (error) {
+        console.error(error);
+    }
 });
 app.listen(5001, () => {
-    console.log("server is running at port 5000");
+    console.log("server is running at port 5001");
 });
