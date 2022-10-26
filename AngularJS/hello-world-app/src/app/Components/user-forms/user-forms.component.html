@@ -1,12 +1,12 @@
 <h2>{{title}}</h2>
 <form>
-    <input type="text" for="name" placeholder="Enter Your Name"/> Name
+    <input type="text" for="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Enter Your Name"/> Name
     <br/>
-    <input type="number" for="age" placeholder="Enter Your Age"/> Age
+    <input type="number" for="age" [(ngModel)]="age" [ngModelOptions]="{standalone: true}" placeholder="Enter Your Age"/> Age
     <br/>
     Gender
-    <input type="radio" name="gender" id="gender" for="gender" value="male">Male
-    <input type="radio" name="gender" id="gender" for="gender" value="female">Feale
+    <input type="radio" name="gender" id="gender" [(ngModel)]="gender" for="gender" [ngModelOptions]="{standalone: true}"  value="male">Male
+    <input type="radio" name="gender" id="gender" for="gender" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" value="female">Female
     <br/>
-    <button type="submit">Submit</button>
+    <button type="submit" (click)="save()">Submit</button>
 </form>
