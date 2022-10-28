@@ -1,8 +1,9 @@
-<p>registered-users works!</p>
-<ul *ngFor="let u of users; index as i" class="list-group list-group-flush">
+<h2 class="display-2" style="text-align: center;border-style:groove;">registered-users</h2>
+<ul *ngFor="let u of users; index as i" class="list-group list-group-flush" style="border-style:groove; text-align: center;">
     <li class="list-group-item">
         <span>Name: {{u.name}}</span>
         <span>Age: {{u.age}}</span>
         <span>Gender: {{u.gender}}</span>
+        <button type="button" class="btn-close" aria-label="Close" (click)="deleteRow(u, i)"></button>
     </li>
 </ul>
