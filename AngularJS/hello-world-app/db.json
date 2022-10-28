@@ -1,11 +1,22 @@
 {
-    "users": [
-        {
-            "Name": "Jay",
-            "Age": 27,
-            "Gender": "Male",
-            "id": 1
-        }
-
-    ]
+  "users": [
+    {
+      "name": "Jay",
+      "age": 27,
+      "gender": "Male",
+      "id": 1
+    },
+    {
+      "name": "jay",
+      "age": 10,
+      "gender": "male",
+      "id": 2
+    },
+    {
+      "name": "Jay Rajesh Suchak",
+      "age": 22,
+      "gender": "male",
+      "id": 3
+    }
+  ]
 }

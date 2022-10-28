@@ -9,5 +9,8 @@ export class UserService {
   saveUser(user: {name:String,age:Number,gender:String}) {
     return this.http.post(BASE_URL, user);
   }
+  getUsers() {
+    return this.http.get(BASE_URL)
+  }
   constructor(private http:HttpClient) { }
 }

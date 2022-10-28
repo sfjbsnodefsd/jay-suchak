@@ -3,14 +3,14 @@
     <div class="input-group mb-3">
         <span class="input-group-text">Name</span>
         <div class="form-floating">
-            <input type="text" for="name"  class="form-control"  [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Enter Your Name"/>
+            <input type="text" for="name"  class="form-control"  [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}" placeholder="Enter Your Name"/>
             <label for="floatingInputGroup1">Name</label>
         </div>
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text">Age</span>
         <div class="form-floating">
-            <input type="number" for="age" [(ngModel)]="age" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Enter Your Age"/>
+            <input type="number" for="age" [(ngModel)]="user.age" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Enter Your Age"/>
             <label for="floatingInputGroup1">Age</label>
         </div>
     </div>
@@ -18,11 +18,11 @@
     <div class="input-group mb-4">
         <span class="input-group-text">Gender</span>
         <div class="form-check">
-            <input type="radio" name="gender" id="gender" class="form-check-input" [(ngModel)]="gender" for="gender" [ngModelOptions]="{standalone: true}"  value="male">
+            <input type="radio" name="gender" id="gender" class="form-check-input" [(ngModel)]="user.gender" for="gender" [ngModelOptions]="{standalone: true}"  value="male">
             <label class="form-check-label" for="flexRadioDisabled">Male</label>
         </div>
         <div class="form-check">
-            <input type="radio" name="gender" id="gender" class="form-check-input" for="gender" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" value="female">
+            <input type="radio" name="gender" id="gender" class="form-check-input" for="gender" [(ngModel)]="user.gender" [ngModelOptions]="{standalone: true}" value="female">
             <label class="form-check-label" for="flexRadioDisabled">Female</label>
         </div>
     </div>
