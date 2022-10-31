@@ -1,3 +1,10 @@
 {
-  "users": []
+  "users": [
+    {
+      "name": "Jay Rajesh Suchak",
+      "age": 27,
+      "gender": "male",
+      "id": 1
+    }
+  ]
 }
