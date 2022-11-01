@@ -7,6 +7,6 @@ export class ActionParent implements Action {
 }
 
 export class TodoAdd implements ActionParent {
-    type: TodoActionType["Add"] | undefined;
+    type = TodoActionType.Add;
     constructor(public payload:any){}
 }

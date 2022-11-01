@@ -1,3 +1,4 @@
 <p>add-todos works!</p>
-<input type="text" #todoItem style="align-items: center;" placeholder="Enter your text">
-<button>Add Todos</button>
+<input #todoItem style="align-items: center;" placeholder="Enter your text">
+<button (click)="AddTodo(todoItem.value)">Add Todos</button>
+<button (click)="AddTodo(todoItem.value)">Add todo!</button>
