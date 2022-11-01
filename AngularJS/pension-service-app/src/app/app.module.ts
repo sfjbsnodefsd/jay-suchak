@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './Component/login/login.component';
-import { PensionerHomeComponent } from './Component/pensioner-home/pensioner-home.component';
+import { LoginComponent } from './Components/login/login.component';
+import { PensionerHomeComponent } from './Components/pensioner-home/pensioner-home.component';
 
 @NgModule({
   declarations: [
