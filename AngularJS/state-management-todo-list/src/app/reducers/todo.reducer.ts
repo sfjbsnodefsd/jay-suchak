@@ -11,8 +11,9 @@ export function TodoReducer(state = initState, action: ActionParent) {
     switch (action.type) {
         case TodoActionType.Add:
             return [...state, action.payload];
+        case TodoActionType.Remove:
+            return [...state.splice(action.payload, 1)]
         default:
             return state;
-            break;
     }  
 } 
