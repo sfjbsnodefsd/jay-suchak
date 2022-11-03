@@ -4,8 +4,12 @@ const app = express();
 const PORT = 5003;
 const User = require("./User");
 const jwt = require("jsonwebtoken");
+const cors = require('cors');
 app.use(express.json());
-
+app.use(cors({
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
 mongoose.connect(
   "mongodb://localhost:27017/auth-service",
   {

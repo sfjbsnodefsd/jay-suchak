@@ -7,8 +7,8 @@ const LOGIN_URL = "http://localhost:5003/auth/login"
 })
 export class LoginService {
 
-  login(data: {email:string, password: string}) {
-    return this.http.post(LOGIN_URL, data);
+  login(user: {email:String, password: String}) {
+    return this.http.post(LOGIN_URL, user);
   }
   constructor(private http:HttpClient) { }
 }
