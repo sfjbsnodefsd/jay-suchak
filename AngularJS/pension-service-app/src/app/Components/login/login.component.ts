@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     observables.subscribe(
       (response: any) => {
         console.log(response);
+        localStorage.setItem('token', response.token)
       },
       (error) => {
         console.log(error);

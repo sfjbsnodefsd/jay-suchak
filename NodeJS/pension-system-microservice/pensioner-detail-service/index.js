@@ -5,9 +5,13 @@ const PensionerDetail = require("./PensionerDetail");
 const PORT = process.env.PORT || 5002;
 const amqp = require("amqplib");
 const isAuthenticated = require('../auth-service/isAuthenticated');
+const cors = require('cors')
 const app = express();
 app.use(express.json());
-
+app.use(cors({
+    origin: 'http://localhost:4200',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
 mongoose
     .connect("mongodb://localhost:27017/PMS-pensioner-detail-service", {
         useNewUrlParser: true,

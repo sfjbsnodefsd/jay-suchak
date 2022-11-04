@@ -1,10 +1,13 @@
 const express = require("express");
 require("dotenv").config();
 const PORT = process.env.PORT || 5004;
-
+const cors = require('cors')
 const app = express();
 app.use(express.json());
-
+app.use(cors({
+    origin: 'http://localhost:4200',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
 app.get('/getPensionPercentage/:classification', (req, res) => {
     try {
         let classification = req.params.classification;

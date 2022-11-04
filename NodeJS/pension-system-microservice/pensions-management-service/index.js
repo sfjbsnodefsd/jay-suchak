@@ -6,10 +6,14 @@ const amqp = require("amqplib");
 const isAuthenticated = require("../auth-service/isAuthenticated");
 var restTemplate = require("rest-template");
 const request = require("request");
-
+const cors = require('cors')
 const app = express();
 app.use(express.json());
 
+app.use(cors({
+    origin: 'http://localhost:4200',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
 var response_from_pensioner_detail;
 
 

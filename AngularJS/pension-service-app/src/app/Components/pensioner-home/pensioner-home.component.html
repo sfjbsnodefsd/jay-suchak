@@ -1,1 +1,18 @@
-<p>pensioner-home works!</p>
+<input type="text" name="adhaar" id="adhaar" [(ngModel)]="adhaar"/>
+<button (click)="getPensioner()">Find</button>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">PensionAmount</th>
+        <th scope="col">serviceCharge</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>{{data.pensionAmount}}</td>
+        <td>{{data.serviceCharge}}</td>
+      </tr>
+    </tbody>
+  </table>
