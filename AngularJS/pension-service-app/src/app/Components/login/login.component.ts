@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/Services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  isLoggedIn = false;
   user: User = new User();
   login() {
     const observables = this.loginService.login(this.user);
@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
       (response: any) => {
         console.log(response);
         localStorage.setItem('token', response.token)
+        // window.location.href = "/home"
+        this.isLoggedIn = true;
+        window.location.reload();
       },
       (error) => {
         console.log(error);

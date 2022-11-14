@@ -8,10 +8,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   // home route protected by auth guard
-  { path: '', component: PensionerHomeComponent, canActivate: [] },
+  { path: 'home', component: PensionerHomeComponent, canActivate: [] },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  { path: '*', redirectTo: '' }
 ];
 
 @NgModule({
