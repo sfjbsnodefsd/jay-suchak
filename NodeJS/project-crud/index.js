@@ -3,11 +3,21 @@ const express = require('express')
 const app = express();
 
 app.use(express.json());
+/** local */
+// const connect = mySql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'welcome$1234',
+//     database: 'employeedb',
+//     multipleStatements: true
+// })
+
+/**aws */
 
 const connect = mySql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'welcome$1234',
+    host: 'database-1-jay.ccuk83kbvjoz.ap-northeast-1.rds.amazonaws.com',
+    user: 'admin',
+    password: 'admin1234',
     database: 'employeedb',
     multipleStatements: true
 })
@@ -38,7 +48,7 @@ app.get('/getEmp', async (req, res) => {
 app.get('/getEmp/:id', async (req, res) => {
     connect.query(`select * from employeedata where empId=${req.params.id}`, (err, data, fields) => {
         if (err) throw err;
-        return res.send(data);
+        return res.send(data[0]);
     });
 })
 
