@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-const LOGIN_URL = "http://localhost:5003/auth/login"
+const URL = "http://localhost:5003/auth"
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
   login(user: {email:String, password: String}) {
-    return this.http.post(LOGIN_URL, user);
+    return this.http.post(`${URL}/login`, user);
+  }
+  register(user: {name:String, email:String, password: String}) {
+    return this.http.post(`${URL}/reg`, user);
   }
   constructor(private http:HttpClient) { }
 }
