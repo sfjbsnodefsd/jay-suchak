@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   { path: 'register', component: RegisterComponent },
-  
+
   // home route protected by auth guard
   { path: 'home', component: PensionerHomeComponent, canActivate: [] },
 
