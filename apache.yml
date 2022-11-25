@@ -1,0 +1,17 @@
+---
+- hosts: 54.227.224.234
+  become: true
+  tasks:
+    - name: Install Apache Server
+      yum:
+        name: httpd
+        state: present
+    - name: Enable Apache Server
+      service:
+        name: httpd
+        enabled: true
+    - name: Install git
+      yum:
+        name: git
+        state: present
+...
